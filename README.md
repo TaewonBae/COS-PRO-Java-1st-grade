@@ -95,3 +95,45 @@ class Main {
     }
 }
 ```
+
+### 1차) 문제 3 - 체스의 나이트
+```Java
+import java.util.*;
+class Main {
+    public int solution(String pos) {
+    	int answer = 0;
+
+	//1. 이동 가능한 8가지 방향 정의 >> x,y로 몇칸 이동했는지
+	int dx[] = {1,2,2,1,-1,-2,-2,-1};
+	int dy[] = {2,1,-1,-2,-2,-1,1,2};
+
+	//2. pos(현재 위치)를 숫자로 변경
+	// cx:'A'를 0으로, cy:'7'을 6으로
+	int cx = pos.charAt(0)-'A'; // 'A'를 숫자로 바꾸려면 'A'를 빼야함
+	int cy = pos.charAt(1)-'0'-1; // '7'을 숫자로 바꾸려면 '0'을 빼고 하나씩 작으니 -1을 해준다.
+	
+	//3. 8가지 방향 중 각 위치로 이동 가능하면 개수 증가
+	// 이동하고자 하는 위치를 구한 후
+	// 해당 위치로 이동 가능하면(체스판 범위 안에 있으면)개수 증가
+	for(int i=0;i<8;i++){
+		int nx = cx + dx[i]; //다음번 x좌표점 = 현재 좌표점 + dx[i]번째 규칙 적용
+		int ny = cy + dy[i]; //다음번 y좌표점 = 현재 좌표점 + dy[i]번째 규칙 적용
+		// 다음번 좌표가 0~7 사이에 있으면 체스판 안에 위치기 때문에 이동가능
+		// 이동가능한 갯수 증가
+		if(nx>=0 && nx<8 && ny>=0 && ny<8){
+		// System.out.println(nx+","+ny);
+			answer++;
+		}
+	}
+      return answer;
+    }
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        String pos = "A7";
+        int ret = sol.solution(pos);
+    	
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+    }
+}
+```
