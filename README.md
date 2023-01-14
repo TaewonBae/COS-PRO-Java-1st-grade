@@ -137,3 +137,47 @@ class Main {
     }
 }
 ```
+
+### 1차) 문제 4 - 병합 and 정렬
+```Java
+import java.util.*;
+
+class Main {
+    public int[] solution(int[] arrA, int[] arrB) {
+	//1. 각 배열의 시작 인덱스 번호를 0으로 초기화
+        int arrA_idx = 0, arrB_idx = 0;
+        int arrA_len = arrA.length;
+        int arrB_len = arrB.length;
+	//answer 변수 생성 : 배열 크기는 arrA, arrB 두 배열의 길이의 합
+        int answer[] = new int[arrA_len + arrB_len];
+        int answer_idx = 0;
+	//2. 각 배열의 맨 앞 인덱스부터 비교해서 둘 중 작은 값을 answer배열에 추가
+	//(반복 조건: 인덱스 < 배열 길이)
+	//(종료 조건: 인덱스 == 배열 길이)
+        while(arrA_idx<arrA_len && arrB_idx<arrB_len){
+		//if 배열 A의 값이 배열 B의 값보다 작을 경우 >> answer에 A값을 넣는다.
+		//else 배열 B의 값이 배열 A의 값보다 작을 경우 >> answer에 B값을 넣는다.
+		if(arrA[arrA_idx] < arrB[arrB_idx])
+			answer[answer_idx++] = arrA[arrA_idx++];
+		else 
+                	answer[answer_idx++] = arrB[arrB_idx++];
+        }
+	// 3. 두 배열 중 하나가 끝까지 모두 수행되면
+	// 남은 배열의 데이터를 순서대로 넣기
+        while(arrA_idx < arrA_len)
+        	answer[answer_idx++] = arrA[arrA_idx++];
+        while(arrB_idx < arrB_len)
+        	answer[answer_idx++] = arrB[arrB_idx++];
+        return answer;
+    }
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        int[] arrA = {-2, 3, 5, 9};
+        int[] arrB = {0, 1, 5};
+        int[] ret = sol.solution(arrA, arrB);
+ 
+ 	System.out.println("solution 메소드의 반환 값은 " + Arrays.toString(ret) + " 입니다.");
+    }
+}
+```
