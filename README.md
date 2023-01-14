@@ -1,6 +1,6 @@
 # COS PRO Java 1급
 
-### 1차) 문제 1
+### 1차) 문제 1 - 타임머신
 ```Java
 class Main {
     public long solution(long num) {
@@ -27,4 +27,9 @@ class Main {
         System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
     }
 }
+```
+
+### 1차) 문제 2 - n 소용돌이 수
+```Java
+
 ```
