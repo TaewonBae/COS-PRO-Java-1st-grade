@@ -6,14 +6,14 @@ class Main {
     public long solution(long num) {
         
         long answer = 0;
-				num++;
-				long digit = 1;
-				while(num/digit%10==0){
-					num+=digit;
-					digit*=10;
-					// System.out.println(num + " "+ digit);
-				}
-				answer = num;
+	num++;
+	long digit = 1;
+	while(num/digit%10==0){
+		num+=digit;
+		digit*=10;
+		// System.out.println(num + " "+ digit);
+	}
+	answer = num;
         return answer;
     }
 
