@@ -1,4 +1,6 @@
 # COS PRO Java 1급
+
+### 1차) 문제 1
 ```Java
 class Main {
     public long solution(long num) {
