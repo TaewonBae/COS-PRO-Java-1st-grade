@@ -1,2 +1,1 @@
-# COS-PRO-Java-1st-grade
-COS PRO Java 1급
+# COS PRO Java 1급
