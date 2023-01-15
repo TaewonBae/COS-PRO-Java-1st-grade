@@ -359,10 +359,10 @@ class Main {
         public int getTotalPrice(){
             int totalPrice = 0;
             Iterator<String> iter = orderList.iterator();
-						//다음 데이터가 있는동안 order라는 변수에 집어넣는다.
+	    //다음 데이터가 있는동안 order라는 변수에 집어넣는다.
             while (iter.hasNext()) {
                 String order = iter.next();
-								//주문한 메뉴가 가격이 얼마인지 찾아야됨, 메뉴판 사이즈만큼 돌면서 주문한 메뉴이름이 있는지 확인, 주문메뉴이름과 메뉴판에 있는 이름이 같으면 메뉴판의 금액을 추가.
+		//주문한 메뉴가 가격이 얼마인지 찾아야됨, 메뉴판 사이즈만큼 돌면서 주문한 메뉴이름이 있는지 확인, 주문메뉴이름과 메뉴판에 있는 이름이 같으면 메뉴판의 금액을 추가.
                 for(int i = 0; i < menuList.size(); i++)
                     if(order.equals(menuList.get(i).name))
                         totalPrice += menuList.get(i).price;
@@ -385,7 +385,6 @@ class Main {
         String[] orderList = {"Cheese", "Pineapple", "Meatball"};
         int ret = sol.solution(orderList);
         
-        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
         System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
     }
 }
