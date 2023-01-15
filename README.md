@@ -438,3 +438,62 @@ class Main {
     }
 }
 ```
+
+### 1차) 문제 10 - 계산기(문자열 형태의 식을 계산하기)
+```Java
+// 다음과 같이 import를 사용할 수 있습니다.
+import java.util.*;
+
+class Main {
+    class Pair{
+        public int firstNum;
+        public int secondNum;
+    }
+    
+		//1. 주어진 연산자에 맞게 연산을 수행
+    public int func_a(int numA, int numB, char exp){
+        if (exp == '+')
+            return numA + numB;
+        else if (exp == '-')
+            return numA - numB;
+        else
+            return numA * numB;
+    }
+    //1. 주어진 식에서 연산자의 위치 찾기
+    public int func_b(String exp){
+        for(int i = 0; i < exp.length(); i++){
+            char e = exp.charAt(i);
+            if(e == '+' || e == '-' || e == '*')
+                return i; //연산자 위치 index 리턴
+        }
+        return -1; //에러일 경우
+    }
+		//2. 연산자의 앞과 뒤에 있는 문자열을 숫자로 변환
+    public Pair func_c(String exp, int idx){
+        Pair ret = new Pair();
+        ret.firstNum = Integer.parseInt(exp.substring(0, idx));//0 ~ (idx-1) 변환
+        ret.secondNum = Integer.parseInt(exp.substring(idx + 1)); // (idx+1)~ 끝까지
+        return ret;
+    }
+    // 4. 위의 함수를 모두 수행해서 결과값 도출
+    public int solution(String expression) {
+				//연산자의 index번호 찾아서 expIndex변수에 넣음
+        int expIndex = func_b(expression);
+				//expression과 (연산자의 index번호를 expIndex)라는 매개변수로 받음
+        Pair numbers = func_c(expression, expIndex); 
+				//첫번째 숫자, 두번째 숫자, 연산자(expression의 인덱스 값에 해당하는 char)를 넣어준다.
+        int result = func_a(numbers.firstNum, numbers.secondNum, expression.charAt(expIndex)); 
+        return result;
+    }
+
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        String expression = "123+12";
+        int ret = sol.solution(expression);
+
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+    }
+}
+```
