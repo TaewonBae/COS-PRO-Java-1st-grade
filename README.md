@@ -188,11 +188,12 @@ class Main {
 import java.util.*;
 class Main {
     public int[] solution(int N, int[] votes) {
-        
+        // 1. 후보자별 득표수를 계산한다.
         int voteCounter[] = new int[11];
         for (int i = 0; i < votes.length; i++) {
             voteCounter[votes[i]] += 1;
         }
+	// 2. 최대득표수(maxVal)와 최대 득표수를 얻은 후보 수(cnt)를 계산한다.
         int maxVal = 0;
         int cnt = 0;
         for (int i = 1; i <= N; i++) {
@@ -204,6 +205,8 @@ class Main {
                 cnt += 1;
             }
         }
+	// 3. 결과값을 넣을 answer 변수 크기를 cnt로 정하기
+	// 최대 득표를 얻은 후보자 번호를 answer에 추가(2개 이상이면 후보자 번호를 오름차순 정렬)
         int answer[] = new int[cnt];
         for (int i = 1, idx = 0; i <= N; i++){
             if (voteCounter[i] == maxVal) {
