@@ -281,3 +281,39 @@ class Main{
     }
 }
 ```
+
+### 1차) 문제 7 - 주식 최대 수익 찾기
+```Java
+// 다음과 같이 import를 사용할 수 있습니다.
+import java.util.*;
+class Main{
+    int solution(int[] prices){
+			  //1. price(가격), tmp(이전 가격 중 최소), price-tmp(현재 수익:매도-매수), 최대수익:-inf
+        int inf = 1000000001;
+        int tmp = inf;
+        int answer = -inf;
+				//주식의 가격들을 받아와서 현재수익(매도-매수) 중 최댓값(answer)
+        for(int price : prices){//배열에 있는 값을 받아 price변수에 하나씩 대입
+            if(tmp != inf)
+                answer = Math.max(answer, price - tmp);//price - tmp : 매도가격 - 매수가격 >> 최대수익:answer과 현재수익:price-tmp 더 큰 값을 찾아서 answer에 넣어주면됨.
+            tmp = Math.min(tmp, price);//매수값 : 이전 데이터들 중 최솟값을 미리 찾아놓는것.
+        }
+        return answer;
+    }
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        int[] prices1 = {1, 2, 3};
+        int ret1 = sol.solution(prices1);
+        
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("solution 메소드의 반환 값은 " + ret1 + " 입니다.");
+
+        int[] prices2 = {3, 1};
+        int ret2 = sol.solution(prices2);
+        
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("solution 메소드의 반환 값은 " + ret2 + " 입니다.");
+    }
+}
+```
