@@ -317,3 +317,76 @@ class Main{
     }
 }
 ```
+
+### 1차) 문제 8 - 음식전문점 운영
+```Java
+// 다음과 같이 import를 사용할 수 있습니다.
+import java.util.*;
+
+class Main {
+    interface DeliveryStore{
+        public void setOrderList(String[] orderList);
+        public int getTotalPrice();
+    }
+    
+    class Food{
+        public String name;
+        public int price;
+        public Food(String name, int price){
+            this.name = name;
+            this.price = price;
+        }
+    }
+    class PizzaStore implements DeliveryStore {//피자스토어는 딜리버리스토어로부터 상속받음
+        private ArrayList<Food> menuList; //메뉴판
+        private ArrayList<String> orderList; //주문서
+        
+        public PizzaStore(){
+            menuList = new ArrayList<Food>();
+            String[] menuNames = {"Cheese", "Potato", "Shrimp", "Pineapple", "Meatball"};
+            int[] menuPrices = {11100, 12600, 13300, 21000, 19500};
+            for(int i = 0; i < 5; i++)
+                menuList.add(new Food(menuNames[i], menuPrices[i])); //메뉴리스트에 메뉴이름과 가격을 하나씩 추가.
+            
+            orderList = new ArrayList<String>(); //orderList 생성
+        }
+        //주문한 내역을 저장하는 함수로 orderList에서 받은걸 멤버변수 orderList에 추가해줘야한다.
+        public void setOrderList(String[] orderList){
+            for(int i = 0; i < orderList.length; i++)
+                this.orderList.add(orderList[i]); //주문내역 추가
+        }
+        //총액 계산 : orderList의 iterator생성 >> 하나의 리모콘을 갖게됨
+        public int getTotalPrice(){
+            int totalPrice = 0;
+            Iterator<String> iter = orderList.iterator();
+						//다음 데이터가 있는동안 order라는 변수에 집어넣는다.
+            while (iter.hasNext()) {
+                String order = iter.next();
+								//주문한 메뉴가 가격이 얼마인지 찾아야됨, 메뉴판 사이즈만큼 돌면서 주문한 메뉴이름이 있는지 확인, 주문메뉴이름과 메뉴판에 있는 이름이 같으면 메뉴판의 금액을 추가.
+                for(int i = 0; i < menuList.size(); i++)
+                    if(order.equals(menuList.get(i).name))
+                        totalPrice += menuList.get(i).price;
+            }
+            return totalPrice;
+        }
+    }
+    
+    public int solution(String[] orderList) {
+        DeliveryStore deliveryStore = new PizzaStore();
+        
+        deliveryStore.setOrderList(orderList);
+        int totalPrice = deliveryStore.getTotalPrice();
+        
+        return totalPrice;
+    }
+     // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        String[] orderList = {"Cheese", "Pineapple", "Meatball"};
+        int ret = sol.solution(orderList);
+        
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+    }
+}
+```
