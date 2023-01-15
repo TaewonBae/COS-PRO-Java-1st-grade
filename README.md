@@ -238,30 +238,46 @@ class Main {
     }
 }
 ```
-### 1차) 문제 6 - 타임머신
+### 1차) 문제 6 - 계단게임
 ```Java
-class Main {
-    public long solution(long num) {
-        
-        long answer = 0;
-	num++;
-	long digit = 1;
-	while(num/digit%10==0){
-		num+=digit;
-		digit*=10;
-		// System.out.println(num + " "+ digit);
-	}
-	answer = num;
-        return answer;
-    }
+// 다음과 같이 import를 사용할 수 있습니다.
+// 다음과 같이 import를 사용할 수 있습니다.
+import java.util.*;
 
-// 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+class Main{
+		// 1. func() 함수 : 매개변수로 받은 값에 대해 승리하는 경우를 리턴
+		// 매개변수로 0:가위 1:바위 2:보 >> 1:바위, 2:보, 0:가위
+		// 그래서 가위 >> 바위(1), 바위 >> 보(2), 보 >> 가위(0)
+    public int func(int record){
+        if(record == 0) return 1;
+        else if(record == 1) return 2;
+        return 0;
+    }
+    public int solution(int[] recordA, int[] recordB){
+        // 2. recordA와 recordB를 순서대로 비교하여, 무승부일 때 cnt 변화없이 계속(continue)
+				// 승리했을 때 cnt + 3
+				// 패배했을 때 cnt -1, (단, 현재 위치가 계단의 제일 아래인 경우 그대로 0)
+        int cnt = 0;
+        for(int i = 0; i < recordA.length; i++){
+            if(recordA[i] == recordB[i]) //무승부
+                continue;
+            else if(recordA[i] == func(recordB[i])) //A가 승리한 것을 냈을 경우
+                cnt = cnt + 3;
+            else //A가 패배한 경우
+                cnt = Math.max(0, cnt - 1); //처음 위치에서 cnt가 0보다 작아지면 제자리니깐 0을 선택
+        }
+        return cnt;
+    }
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
     public static void main(String[] args) {
         Main sol = new Main();
-        long num = 9949999;
-        long ret = sol.solution(num);
+        int[] recordA = {2,0,0,0,0,0,1,1,0,0};
+        int[] recordB = {0,0,0,0,2,2,0,2,2,2};
+        int ret = sol.solution(recordA, recordB);
 
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
         System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+
     }
 }
 ```
