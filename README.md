@@ -189,14 +189,17 @@ import java.util.*;
 class Main {
     public int[] solution(int N, int[] votes) {
         // 1. 후보자별 득표수를 계산한다.
+	//votes의 원소를 하나씩 읽어와서 voteCounter의 index번호와 같으면 갯수를 증가시킨다.
         int voteCounter[] = new int[11];
         for (int i = 0; i < votes.length; i++) {
             voteCounter[votes[i]] += 1;
         }
 	// 2. 최대득표수(maxVal)와 최대 득표수를 얻은 후보 수(cnt)를 계산한다.
+	// 최댓값이 변경되면 cnt = 1,
+	// 최댓값과 같은 값이 다시 나오면 같은 최대 득표자가 또 있는 것이므로 cnt+=1
         int maxVal = 0;
         int cnt = 0;
-        for (int i = 1; i <= N; i++) {
+        for (int i = 1; i <= N; i++) { //0은 의미없기에 1부터 시작하면된다.
             if (maxVal < voteCounter[i]) {
                 maxVal = voteCounter[i];
                 cnt = 1;
@@ -210,7 +213,7 @@ class Main {
         int answer[] = new int[cnt];
         for (int i = 1, idx = 0; i <= N; i++){
             if (voteCounter[i] == maxVal) {
-                answer[idx] = i;
+                answer[idx] = i; //득표수는 voteCounter[i] 이고, 후보자의 번호는 i이다. 
                 idx += 1;
             }
         }
@@ -232,6 +235,33 @@ class Main {
  
         // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
         System.out.println("solution 메소드의 반환 값은 " + Arrays.toString(ret2) + " 입니다.");
+    }
+}
+```
+### 1차) 문제 6 - 타임머신
+```Java
+class Main {
+    public long solution(long num) {
+        
+        long answer = 0;
+	num++;
+	long digit = 1;
+	while(num/digit%10==0){
+		num+=digit;
+		digit*=10;
+		// System.out.println(num + " "+ digit);
+	}
+	answer = num;
+        return answer;
+    }
+
+// 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        long num = 9949999;
+        long ret = sol.solution(num);
+
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
     }
 }
 ```
