@@ -389,3 +389,52 @@ class Main {
     }
 }
 ```
+
+### 1차) 문제 9 - 해밍거리 구하기
+```Java
+// 다음과 같이 import를 사용할 수 있습니다.
+import java.util.*;
+
+class Main {
+    // 2. func_a() : 긴 문자열의 길이에 맞춰 짧은 문자열의 앞에 0 넣기
+    // func_a()를 사용하여 binaryA, binaryB 중 문자열의 길이가 더 짧다면 
+    // 문자열 앞에 0을 채워 넣어 길이 맞추기
+    public String func_a(String str, int len){
+        String padZero = "";
+        int padSize = len - str.length(); //최대길이를 가진 len - 현재길이str.length();
+        // 앞에 0을 채워놓을 길이만큼 0을 채워놓자
+	for(int i = 0; i < padSize; i++)
+            padZero += "0";
+        return padZero + str; // padZero(0을 채워놓은값)+원래문자(str)
+    }
+    
+    public int solution(String binaryA, String binaryB) {
+	//1. 둘 중 긴 문자열의 길이를 구하기
+        int maxLength = Math.max(binaryA.length(), binaryB.length());
+        if(maxLength > binaryA.length())
+            binaryA = func_a(binaryA, maxLength);//func_a()함수 사용후 앞에 0이 필요한만큼 생성되어 110 >> 00110이된다.
+        if(maxLength > binaryB.length())
+            binaryB = func_a(binaryB, maxLength);
+        
+        int hammingDistance = 0;//해밍거리 0 초기화
+	// 두 거리의 차이가 얼마인지 구한다.
+        for(int i = 0; i < maxLength; i++) //i는 0~최대길이미만
+	//두 개의 인덱스번호에 해당하는 위치의 데이터가 서로 다르면
+	//즉, (binaryA의 i번째있는 문자와 binaryB의 i번째있는 문자가 다르면)
+            if(binaryA.charAt(i) != binaryB.charAt(i))
+                hammingDistance += 1;
+        return hammingDistance;
+    }
+    
+    // 아래는 테스트케이스 출력을 해보기 위한 main 메소드입니다.
+    public static void main(String[] args) {
+        Main sol = new Main();
+        String binaryA = "10010";
+        String binaryB = "110";
+        int ret = sol.solution(binaryA, binaryB);
+        
+        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
+        System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+    }
+}
+```
